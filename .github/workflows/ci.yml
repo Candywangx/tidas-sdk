@@ -1,10 +1,27 @@
 name: CI
 
 on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/dependabot.yml
+      - .github/workflows/**
+      - .nvmrc
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - sdks/typescript/package.json
+      - sdks/typescript/examples/package.json
+      - sdks/python/pyproject.toml
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   typescript:
@@ -14,6 +31,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
 
       - name: Check automation before package bootstrap
         run: python3 ./scripts/ci/test-automation-contracts.py
@@ -35,6 +55,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5

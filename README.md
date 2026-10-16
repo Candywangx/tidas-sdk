@@ -20,9 +20,9 @@ checkPaths:
   - sdks/python/**
   - scripts/ci/**
   - .nvmrc
-lastReviewedAt: 2026-10-01
-lastReviewedCommit: ebaaf22172af0fae89a77ef80dc2cd589f641dbe
-lastReviewedNote: "Reviewed SDK #158: formal spec 0.3.0 identity and TypeScript 0.5.0 / Python 0.3.0 release preparation preserve exact-source generation, alias validation and normal tag-driven publication."
+lastReviewedAt: 2026-10-16
+lastReviewedCommit: 13ab657a2f6aa4afb9fba42d312d6247a4f1a0c1
+lastReviewedNote: "Reviewed SDK #162: scoped dependency/configuration PRs reuse both canonical verifiers at exact heads; weekly npm/pip/Actions monitoring retains exact source pins, generated artifacts, dependency contracts and tag-driven publication."
 ---
 
 # TIDAS SDKs
@@ -100,6 +100,7 @@ The sync workflow accepts two repository-dispatch contracts: `tidas_tools_change
 - Repository Contract: [AGENTS.md](./AGENTS.md)
 - Validation Guide: [docs/agents/repo-validation.md](./docs/agents/repo-validation.md)
 - Architecture Notes: [docs/agents/repo-architecture.md](./docs/agents/repo-architecture.md)
+- Dependency Updates: [docs/agents/dependency-updates.md](./docs/agents/dependency-updates.md)
 - Release Setup: [docs/release-setup.md](./docs/release-setup.md)
 - Upstream Automation Design: [docs/upstream-automation.md](./docs/upstream-automation.md)
 - TypeScript Release Guide: [sdks/typescript/RELEASE.md](./sdks/typescript/RELEASE.md)
@@ -186,7 +187,7 @@ Use these local verification commands before opening a release PR:
 ./scripts/ci/verify-python-package.sh
 ```
 
-Except for validated branch-deletion-only pushes, the local `pre-push` hook runs docpact and then both verification scripts. The repository `CI` workflow is manual-dispatch only; package tags and publish workflows still verify the relevant package before release.
+Except for validated branch-deletion-only pushes, the local `pre-push` hook runs docpact and then both verification scripts. The repository `CI` workflow also runs both verifiers at the exact head of main-target dependency/configuration/workflow PRs and remains manually dispatchable; package tags and publish workflows still verify the relevant package before release. See [Dependency Updates](docs/agents/dependency-updates.md) for monitoring and review boundaries.
 
 If you want `tidas-tools` changes to automatically regenerate and release these packages, see [docs/upstream-automation.md](./docs/upstream-automation.md).
 

@@ -19,9 +19,9 @@ checkPaths:
   - .nvmrc
   - package.json
   - .docpact/config.yaml
-lastReviewedAt: 2026-10-07
-lastReviewedCommit: a6caa3287172a1ec640256da986968fde0e19b4d
-lastReviewedNote: "Reviewed SDK #160: additive TypeScript 0.5.1 process semantic API uses exact caller Flow evidence, native conformance and explicit coverage; structural schemas, Python and upstream release contracts remain unchanged."
+lastReviewedAt: 2026-10-16
+lastReviewedCommit: 13ab657a2f6aa4afb9fba42d312d6247a4f1a0c1
+lastReviewedNote: "Reviewed SDK #162: scoped dependency/configuration PRs reuse both canonical verifiers at exact heads; weekly npm/pip/Actions monitoring retains exact source pins, generated artifacts, dependency contracts and tag-driven publication."
 related:
   - ../AGENTS.md
   - ../.docpact/config.yaml
