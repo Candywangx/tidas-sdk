@@ -18,9 +18,9 @@ checkPaths:
   - .nvmrc
   - package.json
   - .docpact/config.yaml
-lastReviewedAt: 2026-10-07
-lastReviewedCommit: a6caa3287172a1ec640256da986968fde0e19b4d
-lastReviewedNote: "Reviewed SDK #158: formal spec 0.3.0 identity and TypeScript 0.5.0 / Python 0.3.0 release preparation preserve exact-source generation, alias validation and normal tag-driven publication."
+lastReviewedAt: 2026-10-16
+lastReviewedCommit: 13ab657a2f6aa4afb9fba42d312d6247a4f1a0c1
+lastReviewedNote: "Reviewed SDK #162: scoped dependency/configuration PRs reuse both canonical verifiers at exact heads; weekly npm/pip/Actions monitoring retains exact source pins, generated artifacts, dependency contracts and tag-driven publication."
 related:
   - ../AGENTS.md
   - ../.docpact/config.yaml
@@ -61,7 +61,7 @@ Operational preference:
 - keep registry ownership and Trusted Publishing configuration in `tiangong-lca/tidas-sdks`
 - keep `publish.yml` as the formal package release entrypoint
 - automate PR creation and tag creation, not cross-repository direct publishing
-- keep `.github/workflows/ci.yml` as manual-dispatch only; ordinary pushes rely on the local pre-push gate
+- `.github/workflows/ci.yml` validates main-target dependency/configuration/workflow PRs through both existing verifiers and remains manually dispatchable; ordinary source pushes retain the local pre-push gate
 - if a release-prep PR changes the machine-readable TypeScript validation contract, call that out explicitly so downstream consumers can review any UI or API mapping impact before tagging
 - before tagging a spec-driven SDK release, confirm the generated package-input pin and bundled W9 public-rule source identity both name the same released spec commit; compatibility-only runtime ruleset summaries remain separately governed
 - a reviewed candidate spec archive may be used for qualification without changing package versions or tags; only the canonical `tidas_spec_released` event may replace it with formal release identity and enter normal release preparation, and a same-version promotion requires identical archive and manifest digests unless it is the exact retained 0.2.0 exception

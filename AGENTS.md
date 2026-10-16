@@ -31,9 +31,9 @@ checkPaths:
   - scripts/docpact
   - scripts/docpact-gate.sh
   - scripts/install-git-hooks.sh
-lastReviewedAt: 2026-10-07
-lastReviewedCommit: a6caa3287172a1ec640256da986968fde0e19b4d
-lastReviewedNote: "Reviewed SDK #160: additive TypeScript 0.5.1 process semantic API uses exact caller Flow evidence, native conformance and explicit coverage; structural schemas, Python and upstream release contracts remain unchanged."
+lastReviewedAt: 2026-10-16
+lastReviewedCommit: 13ab657a2f6aa4afb9fba42d312d6247a4f1a0c1
+lastReviewedNote: "Reviewed SDK #162: scoped dependency/configuration PRs reuse both canonical verifiers at exact heads; weekly npm/pip/Actions monitoring retains exact source pins, generated artifacts, dependency contracts and tag-driven publication."
 related:
   - .docpact/config.yaml
   - docs/agents/repo-validation.md
@@ -100,7 +100,8 @@ Keep these entry-level facts in `AGENTS.md`. Use `README.md`, `docs/agents/repo-
   - `./scripts/ci/verify-typescript-package.sh`
   - `./scripts/ci/verify-python-package.sh`
 - the local pre-push hook runs docpact and then both verification scripts for source, tag and unrecognized pushes; only complete valid branch-deletion-only input skips those source gates
-- `.github/workflows/ci.yml` is manual-dispatch only; tag and publish workflows run release-time package verification
+- `.github/workflows/ci.yml` runs both canonical verifiers for main-target dependency/configuration/workflow PRs at their exact heads and remains manually dispatchable; tag and publish workflows run release-time package verification
+- dependency monitoring scope, cadence and review boundaries live in `docs/agents/dependency-updates.md`; configuration-only maintenance has a dedicated narrow Docpact rule, while existing manifest, lock and source review requirements remain active
 - upstream refresh helpers:
   - `./scripts/ci/generate-typescript-sdk.sh`
   - `./scripts/ci/generate-python-sdk.sh`

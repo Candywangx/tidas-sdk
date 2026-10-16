@@ -1,8 +1,8 @@
 version: 1
 layout: repo
-lastReviewedAt: "2026-10-07"
-lastReviewedCommit: "a6caa3287172a1ec640256da986968fde0e19b4d"
-lastReviewedNote: "Reviewed SDK #160: additive TypeScript 0.5.1 process semantic API uses exact caller Flow evidence, native conformance and explicit coverage; structural schemas, Python and upstream release contracts remain unchanged."
+lastReviewedAt: '2026-10-16'
+lastReviewedCommit: '13ab657a2f6aa4afb9fba42d312d6247a4f1a0c1'
+lastReviewedNote: 'Reviewed SDK #162: scoped dependency/configuration PRs reuse both canonical verifiers at exact heads; weekly npm/pip/Actions monitoring retains exact source pins, generated artifacts, dependency contracts and tag-driven publication.'
 
 catalog:
   repos:
@@ -13,6 +13,7 @@ catalog:
       workflowDocs:
         - docs/agents/repo-validation.md
         - docs/agents/repo-architecture.md
+        - docs/agents/dependency-updates.md
         - docs/release-setup.md
         - docs/upstream-automation.md
       workspaceIntegrationRequired: true
@@ -28,6 +29,7 @@ ownership:
           - docs/agents/**
           - docs/release-setup.md
           - docs/upstream-automation.md
+          - .github/dependabot.yml
           - .github/workflows/ai-doc-lint.yml
       ownerRepo: tidas-sdk
     - id: typescript-package-surface
@@ -117,6 +119,7 @@ coverage:
     - sdks/python/src/**
     - sdks/python/tests/**
     - .github/workflows/ai-doc-lint.yml
+    - .github/dependabot.yml
     - .github/workflows/ci.yml
     - .github/workflows/publish.yml
     - .github/workflows/sync-from-tidas-tools.yml
@@ -143,6 +146,11 @@ freshness:
 
 routing:
   intents:
+    dependency-maintenance:
+      paths:
+        - .github/dependabot.yml
+        - .github/workflows/ci.yml
+        - docs/agents/dependency-updates.md
     local-docpact-gate:
       paths:
         - .githooks/pre-push
@@ -250,6 +258,7 @@ docInventory:
     - .docpact/config.yaml
     - docs/agents/repo-validation.md
     - docs/agents/repo-architecture.md
+    - docs/agents/dependency-updates.md
     - docs/release-setup.md
     - docs/upstream-automation.md
 
@@ -258,6 +267,20 @@ repo:
   owner: tidas-sdk
 
 rules:
+  - id: tidas-sdk-dependency-monitoring-contract
+    scope: repo
+    repo: tidas-sdk
+    triggers:
+      - path: .github/dependabot.yml
+        kind: dependency-monitoring-config
+      - path: .github/workflows/ci.yml
+        kind: dependency-pr-validation
+      - path: docs/agents/dependency-updates.md
+        kind: dependency-maintainer-guide
+    requiredDocs:
+      - path: docs/agents/dependency-updates.md
+        mode: review_or_update
+    reason: Dependency monitoring and scoped PR validation must agree with the maintainer guide on cadence, grouping, exact-head verification and review boundaries.
   - id: tidas-sdk-bootstrap-contract
     scope: repo
     repo: tidas-sdk
