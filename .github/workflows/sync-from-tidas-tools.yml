@@ -244,7 +244,7 @@ jobs:
 
       - name: Set up pnpm and Node.js
         if: steps.request.outputs.requested_typescript == 'true'
-        uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2 # v2.0.2
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3.0.0
         with:
           runtime: node@24.19.0
           install: false
@@ -252,13 +252,13 @@ jobs:
 
       - name: Set up Python
         if: steps.request.outputs.requested_python == 'true'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
       - name: Set up uv
         if: steps.request.outputs.requested_python == 'true'
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
 
@@ -474,7 +474,7 @@ jobs:
       - name: Create or update release-prep pull request
         if: steps.changes.outputs.any_changed == 'true'
         id: create_pr
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.TIDAS_RELEASE_AUTOMATION_TOKEN }}
           add-paths: |
