@@ -244,7 +244,7 @@ jobs:
 
       - name: Set up pnpm and Node.js
         if: steps.request.outputs.requested_typescript == 'true'
-        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3.0.0
+        uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
         with:
           runtime: node@24.19.0
           install: false
@@ -252,15 +252,16 @@ jobs:
 
       - name: Set up Python
         if: steps.request.outputs.requested_python == 'true'
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
 
       - name: Set up uv
         if: steps.request.outputs.requested_python == 'true'
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
         with:
-          enable-cache: true
+          enable-cache: auto
+          prune-cache: false
 
       - name: Regenerate TypeScript SDK
         if: steps.request.outputs.requested_typescript == 'true'
@@ -474,7 +475,7 @@ jobs:
       - name: Create or update release-prep pull request
         if: steps.changes.outputs.any_changed == 'true'
         id: create_pr
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           token: ${{ secrets.TIDAS_RELEASE_AUTOMATION_TOKEN }}
           add-paths: |

@@ -18,9 +18,9 @@ checkPaths:
   - .nvmrc
   - package.json
   - .docpact/config.yaml
-lastReviewedAt: 2026-10-17
-lastReviewedCommit: ac91862d8805e92098b312092147161dab88be50
-lastReviewedNote: "Reviewed SDK #167: latest compatible development-tool updates preserve runtime and package versions, exact upstream pins, generated assets, diagnostic and release policy; SDK source and package qualification remain mandatory."
+lastReviewedAt: 2026-10-18
+lastReviewedCommit: 9815ad4e2c2c30b067bbb648b71f769d1cd0efbe
+lastReviewedNote: "Reviewed SDK #168: six exact Actions pins, explicit uv auto/prune policy and read-only real Python artifact roundtrip; package graph, versions, source identities, semantics and release authorization preserved."
 related:
   - ../AGENTS.md
   - ../.docpact/config.yaml
@@ -141,6 +141,12 @@ If the PyPI project does not exist yet, register a pending publisher first so th
 - the TypeScript package pins its public publish target to
   `https://registry.npmjs.org/`; do not rely on runner-level registry defaults.
 - `publish.yml` validates that the Git tag matches the package version before upload.
+- Python distributions retain the archived `python-dist` / `dist/*` transfer;
+  downloads fail on artifact digest mismatch. PR CI qualifies the same action
+  pair with real distributions and a separate producer inventory, without
+  entering the protected release environment or acquiring publication authority.
+- setup-uv uses its event-sensitive `auto` cache policy with pruning disabled;
+  tag/release cache restrictions do not waive package verification.
 - post-merge tag detection treats an absent `typescript-vX.Y.Z` or `python-vX.Y.Z`
   tag for the current package version as a pending release; an existing matching
   tag prevents unrelated later pushes from attempting the same release again.
