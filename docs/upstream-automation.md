@@ -20,8 +20,8 @@ checkPaths:
   - package.json
   - .docpact/config.yaml
 lastReviewedAt: 2026-10-18
-lastReviewedCommit: 9815ad4e2c2c30b067bbb648b71f769d1cd0efbe
-lastReviewedNote: "Reviewed SDK #168: six exact Actions pins, explicit uv auto/prune policy and read-only real Python artifact roundtrip; package graph, versions, source identities, semantics and release authorization preserved."
+lastReviewedCommit: 547267760a80085ebddea118059fc686e94bd28d
+lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
 related:
   - ../AGENTS.md
   - ../.docpact/config.yaml

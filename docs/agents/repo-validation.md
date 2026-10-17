@@ -29,8 +29,8 @@ checkPaths:
   - scripts/docpact-gate.sh
   - scripts/install-git-hooks.sh
 lastReviewedAt: 2026-10-18
-lastReviewedCommit: 9815ad4e2c2c30b067bbb648b71f769d1cd0efbe
-lastReviewedNote: "Reviewed SDK #168: six exact Actions pins, explicit uv auto/prune policy and read-only real Python artifact roundtrip; package graph, versions, source identities, semantics and release authorization preserved."
+lastReviewedCommit: 547267760a80085ebddea118059fc686e94bd28d
+lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
 related:
   - ../../AGENTS.md
   - ../../.docpact/config.yaml
@@ -131,6 +131,10 @@ Facts that matter:
 ## Process allocation/reference semantic API proof
 
 SDK #160 adds the additive TypeScript 0.5.1 API independently of structural validation. Public root-API tests exercise the byte-identical SDK/Toolkit `process-semantics.v1.json` fixture, exact Flow evidence, resolver bounds/failures, singleton/array paths, stable diagnostics, full vector projection, legacy interpretations and immutability. Run the canonical TypeScript verifier plus coverage; TypeScript tarball qualification is source-package proof. Actual `typescript-v0.5.1` publication and consumer adoption need their separate exact package/registry receipts. Python source/API/version are unchanged.
+
+## Pure entity Markdown proof
+
+SDK #169 adds public-root API cases for `TidasLifeCycleModel` and `TidasProcess`: English document sections, requested-language selection and fallback, explicit and unresolved reference evidence, singleton collections, ordering, empty defaults, deterministic rendering and preservation of source values during rendering. These partially authored data-container fixtures do not claim structural schema validity. Construction initializes the supplied object; the rendering immutability proof begins after construction and makes no constructor-input immutability claim. All existing tests and the 95/75/70 coverage gates remain in force; run both canonical package verifiers, automation contracts and TypeScript coverage. Local proof does not establish native hosted CI, publication or workspace integration.
 
 ## Minimum PR Note Quality
 
