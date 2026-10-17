@@ -28,9 +28,9 @@ checkPaths:
   - scripts/docpact
   - scripts/docpact-gate.sh
   - scripts/install-git-hooks.sh
-lastReviewedAt: 2026-10-16
-lastReviewedCommit: 13ab657a2f6aa4afb9fba42d312d6247a4f1a0c1
-lastReviewedNote: "Reviewed SDK #162: scoped dependency/configuration PRs reuse both canonical verifiers at exact heads; weekly npm/pip/Actions monitoring retains exact source pins, generated artifacts, dependency contracts and tag-driven publication."
+lastReviewedAt: 2026-10-17
+lastReviewedCommit: ac91862d8805e92098b312092147161dab88be50
+lastReviewedNote: "Reviewed SDK #167: latest compatible development-tool updates preserve runtime and package versions, exact upstream pins, generated assets, diagnostic and release policy; SDK source and package qualification remain mandatory."
 related:
   - ../../AGENTS.md
   - ../../.docpact/config.yaml
