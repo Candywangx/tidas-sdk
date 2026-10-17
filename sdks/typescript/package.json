@@ -119,6 +119,6 @@
   "dependencies": {
     "jsonschema": "^1.5.0",
     "xmltodict": "^1.0.5",
-    "zod": "^4.4.3"
+    "zod": "^4.6.5"
   }
 }
