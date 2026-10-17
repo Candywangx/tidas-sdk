@@ -28,9 +28,9 @@ checkPaths:
   - scripts/docpact
   - scripts/docpact-gate.sh
   - scripts/install-git-hooks.sh
-lastReviewedAt: 2026-10-17
-lastReviewedCommit: ac91862d8805e92098b312092147161dab88be50
-lastReviewedNote: "Reviewed SDK #167: latest compatible development-tool updates preserve runtime and package versions, exact upstream pins, generated assets, diagnostic and release policy; SDK source and package qualification remain mandatory."
+lastReviewedAt: 2026-10-18
+lastReviewedCommit: 748db8fb7e3fb0f0a167abdb3f538ac85d8fc871
+lastReviewedNote: "Reviewed SDK #169: pure public Model/Process Markdown and default/reference tests retain all prior tests and the existing 95/75/70 coverage gates; runtime, generated assets, dependency graph, package versions and release authority remain unchanged."
 related:
   - ../../AGENTS.md
   - ../../.docpact/config.yaml
@@ -131,6 +131,10 @@ Facts that matter:
 ## Process allocation/reference semantic API proof
 
 SDK #160 adds the additive TypeScript 0.5.1 API independently of structural validation. Public root-API tests exercise the byte-identical SDK/Toolkit `process-semantics.v1.json` fixture, exact Flow evidence, resolver bounds/failures, singleton/array paths, stable diagnostics, full vector projection, legacy interpretations and immutability. Run the canonical TypeScript verifier plus coverage; TypeScript tarball qualification is source-package proof. Actual `typescript-v0.5.1` publication and consumer adoption need their separate exact package/registry receipts. Python source/API/version are unchanged.
+
+## Pure entity Markdown proof
+
+SDK #169 adds public-root API cases for `TidasLifeCycleModel` and `TidasProcess`: English document sections, requested-language selection and fallback, explicit and unresolved reference evidence, singleton collections, ordering, empty defaults, deterministic rendering and preservation of source values during rendering. These partially authored data-container fixtures do not claim structural schema validity. Construction initializes the supplied object; the rendering immutability proof begins after construction and makes no constructor-input immutability claim. All existing tests and the 95/75/70 coverage gates remain in force; run both canonical package verifiers, automation contracts and TypeScript coverage. Local proof does not establish native hosted CI, publication or workspace integration.
 
 ## Minimum PR Note Quality
 

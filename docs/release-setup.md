@@ -18,9 +18,9 @@ checkPaths:
   - .nvmrc
   - package.json
   - .docpact/config.yaml
-lastReviewedAt: 2026-10-17
-lastReviewedCommit: ac91862d8805e92098b312092147161dab88be50
-lastReviewedNote: "Reviewed SDK #167: latest compatible development-tool updates preserve runtime and package versions, exact upstream pins, generated assets, diagnostic and release policy; SDK source and package qualification remain mandatory."
+lastReviewedAt: 2026-10-18
+lastReviewedCommit: 748db8fb7e3fb0f0a167abdb3f538ac85d8fc871
+lastReviewedNote: "Reviewed SDK #169: test-only coverage restoration preserves TypeScript 0.5.1, Python 0.3.0 and existing tag/publish authority; current-version tag presence remains a pre-merge requirement."
 related:
   - ../AGENTS.md
   - ../.docpact/config.yaml
