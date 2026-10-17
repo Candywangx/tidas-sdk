@@ -15,6 +15,7 @@ import sys
 import tempfile
 import tarfile
 import unittest
+import zipfile
 from pathlib import Path
 
 
@@ -413,6 +414,77 @@ class TidasSpecReleaseEventTests(unittest.TestCase):
                 update_tidas_spec_pin.apply_event(pin, payload)
 
 
+class PythonArtifactRoundtripTests(unittest.TestCase):
+    def make_distributions(self, root: Path) -> None:
+        with zipfile.ZipFile(root / "tidas_sdk-0.3.0-py3-none-any.whl", "w") as archive:
+            archive.writestr("tidas_sdk-0.3.0.dist-info/METADATA", "Name: tidas-sdk\nVersion: 0.3.0\n")
+        with tarfile.open(root / "tidas_sdk-0.3.0.tar.gz", "w:gz") as archive:
+            content = b"Name: tidas-sdk\nVersion: 0.3.0\n"
+            entry = tarfile.TarInfo("tidas_sdk-0.3.0/PKG-INFO")
+            entry.size = len(content)
+            archive.addfile(entry, io.BytesIO(content))
+
+    def run_inventory(self, mode: str, root: Path, expected: str = ""):
+        return subprocess.run(
+            [sys.executable, str(SCRIPT_ROOT / "python-dist-inventory.py"), mode, str(root)],
+            env={**os.environ, "PYTHON_DIST_INVENTORY": expected},
+            text=True, capture_output=True,
+        )
+
+    def test_roundtrip_binds_producer_bytes_and_rejects_missing_extra_or_corrupt_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.make_distributions(root)
+            created = self.run_inventory("create", root)
+            self.assertEqual(created.returncode, 0, created.stderr)
+            expected = created.stdout.strip()
+            self.assertEqual(self.run_inventory("verify", root, expected).returncode, 0)
+            # A readable, valid archive with different bytes must fail the independently
+            # supplied producer inventory, even if its own local inventory is coherent.
+            wheel = root / "tidas_sdk-0.3.0-py3-none-any.whl"
+            with zipfile.ZipFile(wheel, "a") as archive:
+                archive.writestr("tidas_sdk/changed.py", "changed = True\n")
+            changed = self.run_inventory("verify", root, expected)
+            self.assertNotEqual(changed.returncode, 0)
+            self.assertIn("differs from producer", changed.stderr)
+            wheel.write_bytes(b"not a wheel")
+            self.assertNotEqual(self.run_inventory("create", root).returncode, 0)
+            wheel.unlink()
+            self.assertNotEqual(self.run_inventory("verify", root, expected).returncode, 0)
+            self.make_distributions(root)
+            (root / "inventory.json").write_text(expected)
+            self.assertNotEqual(self.run_inventory("verify", root, expected).returncode, 0)
+
+    def test_ci_roundtrip_has_independent_inventory_and_read_only_same_run_transfer(self):
+        raw = (REPO_ROOT / ".github/workflows/ci.yml").read_text()
+        producer, consumer = raw.split("  python-artifact-roundtrip:\n", 1)
+        self.assertIn("dist-inventory: ${{ steps.inventory.outputs.inventory }}", producer)
+        self.assertIn("./scripts/ci/verify-python-package.sh", producer)
+        self.assertLess(producer.index("./scripts/ci/verify-python-package.sh"),
+                        producer.index("Record producer distribution inventory"))
+        self.assertIn("retention-days: 1", producer)
+        self.assertIn("path: sdks/python/dist/*", producer)
+        self.assertIn("archive: true", producer)
+        self.assertIn("needs: python", consumer)
+        self.assertIn("PYTHON_DIST_INVENTORY: ${{ needs.python.outputs.dist-inventory }}", consumer)
+        self.assertIn("python3 scripts/ci/python-dist-inventory.py verify dist", consumer)
+        self.assertIn("digest-mismatch: error", consumer)
+        self.assertIn("skip-decompress: false", consumer)
+        self.assertIn("actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9", producer)
+        self.assertIn("actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333", consumer)
+        for forbidden in ("secrets.", "id-token:", "environment:", "pull_request_target:",
+                          "repository_dispatch:", "run-id:", "github-token:"):
+            self.assertNotIn(forbidden, raw)
+
+    def test_uv_cache_policy_is_explicit_at_the_four_existing_sites(self):
+        for name in ("ci", "publish", "sync-from-tidas-tools", "tag-release-from-merge"):
+            raw = (REPO_ROOT / ".github/workflows" / f"{name}.yml").read_text()
+            with self.subTest(workflow=name):
+                self.assertEqual(raw.count("enable-cache: auto"), 1)
+                self.assertEqual(raw.count("prune-cache: false"), 1)
+                self.assertNotIn("enable-cache: true", raw)
+
+
 class PnpmWorkflowContractTests(unittest.TestCase):
     TYPESCRIPT_WORKFLOWS = (
         "ci.yml",
@@ -429,8 +501,8 @@ class PnpmWorkflowContractTests(unittest.TestCase):
             with self.subTest(workflow=name):
                 raw = self.workflow_text(name)
                 self.assertIn(
-                    "uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2 "
-                    "# v2.0.2",
+                    "uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 "
+                    "# v3.1.1",
                     raw,
                 )
                 self.assertIn("runtime: node@24.19.0", raw)

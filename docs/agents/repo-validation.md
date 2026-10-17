@@ -29,8 +29,8 @@ checkPaths:
   - scripts/docpact-gate.sh
   - scripts/install-git-hooks.sh
 lastReviewedAt: 2026-10-18
-lastReviewedCommit: 748db8fb7e3fb0f0a167abdb3f538ac85d8fc871
-lastReviewedNote: "Reviewed SDK #169: pure public Model/Process Markdown and default/reference tests retain all prior tests and the existing 95/75/70 coverage gates; runtime, generated assets, dependency graph, package versions and release authority remain unchanged."
+lastReviewedCommit: 3c0b7eb4fab554418f7e71620146e65366a9d246
+lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
 related:
   - ../../AGENTS.md
   - ../../.docpact/config.yaml
@@ -188,3 +188,26 @@ Direct canonical verification and release-time package proof remain unchanged.
 SDK #158 consumes formal spec `0.3.0` at `32e1ba38da7d5f4f6245c6c1927f83b326cd5404`. The package-input and public-rule pins must bind the same released archive and manifest. Both canonical package verifiers must pass with the existing exact tools pin before tag-driven TypeScript `0.5.0` and Python `0.3.0` publication. Generator tests cover annotation-only `$comment`, bounded `not: { required: [...] }` alias exclusion, and parenthesized enum-array TypeScript output. Generated-schema tests exercise repeated Process/Flow fields, named classifications, model scaling aliases, LCIA geography aliases and strict unit items. Platform must verify the actual released package outside its Jest SDK mapper.
 
 Python object generation preserves `allOf` negated-required groups through normalization and emits model validators using explicit field presence. Regression cases require either scaling/geography alias alone to pass and both aliases together to fail, including Python field-name input. This closes the gap between shipped JSON Schema validation and direct Pydantic construction.
+
+## Python artifact roundtrip
+
+The automatic dependency/workflow PR CI builds the real wheel and sdist through
+its canonical Python verifier, then uploads `python-dist` as an archived artifact
+with one-day retention. A dependent read-only job downloads that same run's
+artifact with digest mismatches treated as errors. The producer passes a sorted
+filename, size and SHA256 inventory through a job output independently of the
+downloaded bytes; `scripts/ci/python-dist-inventory.py` requires an exact match,
+exactly one wheel and one sdist, and readable package archives with metadata.
+The inventory is never added to `dist/*`. This checks the artifact transfer path;
+registry OIDC and operational create-PR writes require their separate proof.
+
+All four setup-uv sites use `enable-cache: auto` and `prune-cache: false`.
+This deliberately adopts the action's event-sensitive cache policy, including
+its release/tag cache restrictions. Frozen installs, exact source and asset
+verification, regeneration drift checks and package gates run regardless of hits.
+
+SDK #168 composes the delivered SDK #169 tests without changing their pure-data
+fixture or rendering-immutability boundary. Requalification requires both
+canonical package verifiers, automation contracts and the unchanged 95/75/70
+TypeScript coverage gate. A local distribution copy verifies package bytes and
+archives; only fresh exact-head hosted CI proves the upload/download service.

@@ -20,9 +20,9 @@ checkPaths:
   - sdks/python/**
   - scripts/ci/**
   - .nvmrc
-lastReviewedAt: 2026-10-17
-lastReviewedCommit: ac91862d8805e92098b312092147161dab88be50
-lastReviewedNote: "Reviewed SDK #167: latest compatible development-tool updates preserve runtime and package versions, exact upstream pins, generated assets, diagnostic and release policy; SDK source and package qualification remain mandatory."
+lastReviewedAt: 2026-10-18
+lastReviewedCommit: 3c0b7eb4fab554418f7e71620146e65366a9d246
+lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
 ---
 
 # TIDAS SDKs

@@ -15,9 +15,9 @@ checkPaths:
   - .github/dependabot.yml
   - .github/workflows/ci.yml
   - docs/agents/dependency-updates.md
-lastReviewedAt: 2026-10-16
-lastReviewedCommit: 13ab657a2f6aa4afb9fba42d312d6247a4f1a0c1
-lastReviewedNote: 'SDK #162 adds scoped dependency PR validation and weekly monitoring; exact upstream identities, generated assets, package versions and publication remain separately governed.'
+lastReviewedAt: 2026-10-18
+lastReviewedCommit: 3c0b7eb4fab554418f7e71620146e65366a9d246
+lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
 related:
   - ../../AGENTS.md
   - ./repo-validation.md
@@ -46,7 +46,10 @@ verification jobs against the exact PR head. This includes maintainer-authored
 dependency changes. Source-only and documentation-only feature changes retain
 the existing local pre-push checks; manual CI remains available. Superseded CI
 runs for the same PR are cancelled. PR checks have read-only repository access
-and receive no publication credentials.
+and receive no publication credentials. The Python lane also uploads its real
+verified wheel and sdist for a dependent read-only artifact roundtrip. Producer
+filename, size and SHA256 outputs independently bind the downloaded bytes; the
+archive checks and short retention are described in the validation guide.
 
 Before accepting an update, inspect its actual manifest and lockfile diff and
 run both canonical verifiers documented in [the validation guide](repo-validation.md).
