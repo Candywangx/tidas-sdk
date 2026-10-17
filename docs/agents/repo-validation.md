@@ -29,7 +29,7 @@ checkPaths:
   - scripts/docpact-gate.sh
   - scripts/install-git-hooks.sh
 lastReviewedAt: 2026-10-18
-lastReviewedCommit: 547267760a80085ebddea118059fc686e94bd28d
+lastReviewedCommit: 3c0b7eb4fab554418f7e71620146e65366a9d246
 lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
 related:
   - ../../AGENTS.md
@@ -205,3 +205,9 @@ All four setup-uv sites use `enable-cache: auto` and `prune-cache: false`.
 This deliberately adopts the action's event-sensitive cache policy, including
 its release/tag cache restrictions. Frozen installs, exact source and asset
 verification, regeneration drift checks and package gates run regardless of hits.
+
+SDK #168 composes the delivered SDK #169 tests without changing their pure-data
+fixture or rendering-immutability boundary. Requalification requires both
+canonical package verifiers, automation contracts and the unchanged 95/75/70
+TypeScript coverage gate. A local distribution copy verifies package bytes and
+archives; only fresh exact-head hosted CI proves the upload/download service.

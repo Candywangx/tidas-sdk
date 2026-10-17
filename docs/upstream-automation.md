@@ -20,7 +20,7 @@ checkPaths:
   - package.json
   - .docpact/config.yaml
 lastReviewedAt: 2026-10-18
-lastReviewedCommit: 547267760a80085ebddea118059fc686e94bd28d
+lastReviewedCommit: 3c0b7eb4fab554418f7e71620146e65366a9d246
 lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
 related:
   - ../AGENTS.md
