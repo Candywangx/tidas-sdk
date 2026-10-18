@@ -51,7 +51,7 @@ TypeScript 0.6.0 pins Zod 4.6.7 and uses public-spec Unicode code-point string b
 
 For the TypeScript package, that ownership now includes the machine-readable validation contract exposed by `validateEnhanced()`: downstream callers should expect a stable `validationIssues` array with normalized `code`, `path`, `severity`, optional `params`, and `rawCode`, rather than parsing raw Zod messages when stable behavior matters.
 
-The TypeScript SDK also owns `analyzeProcessSemantics()` as a separate, non-mutating consumer-policy API for allocation/reference interpretation, with exact caller-supplied Flow evidence and explicit per-check coverage. Structural `strict` validation and generated public schemas remain unchanged. Its versioned policy is documented in the TypeScript package README.
+The TypeScript SDK also owns `analyzeProcessSemantics()` as a separate, non-mutating consumer-policy API for allocation/reference interpretation, with exact caller-supplied Flow evidence and explicit per-check coverage. That separate API does not alter structural `strict` validation or generated public schemas. Its versioned policy is documented in the TypeScript package README.
 
 The TypeScript SDK publishes spec-owned public definitions but no longer exports the former mixed runtime-ruleset getter or bundles its two legacy files. Its derived runtime lock preserves the verified upstream tools-lock identity while excluding those exact files. Consumer execution policy remains outside the SDK; Python's package boundary is unchanged.
 
