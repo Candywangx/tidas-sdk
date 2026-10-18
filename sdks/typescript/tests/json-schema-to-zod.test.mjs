@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 import { JsonSchemaToZod } from '../scripts/json-schema-to-zod.ts';
 import { replaceExportedSchema } from '../scripts/schema-postprocess.ts';
@@ -322,4 +326,27 @@ test('comments do not change validation and conflicting aliases render a negated
   assert.throws(() => new JsonSchemaToZod('comment.json', { type: 'string', $comment: 1 }).renderModule(), /comment must be a string/);
   const aliases = new JsonSchemaToZod('alias.json', { not: { required: ['canonical', 'legacy'] } }).renderModule();
   assert.match(aliases.content, /jsonSchemaNotRequired\(\["canonical","legacy"\]\)/);
+});
+
+test('regenerated string bounds and date-time use native public-spec semantics', async () => {
+  const input = { type: 'object', required: ['text', 'timestamp'], properties: {
+    text: { type: 'string', minLength: 2, maxLength: 3 },
+    timestamp: { type: 'string', format: 'date-time' },
+  } };
+  const first = new JsonSchemaToZod('migration.json', input).renderModule();
+  assert.deepEqual(new JsonSchemaToZod('migration.json', input).renderModule(), first);
+  assert.match(first.content, /z\.string\(\)\.min\(2\)\.max\(3\)/);
+  assert.match(first.content, /z\.iso\.datetime\(\{ offset: true \}\)/);
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'tidas-generated-migration-'));
+  try {
+    const modulePath = path.join(directory, 'generated.mjs');
+    fs.writeFileSync(modulePath, first.content.replace("'zod'", JSON.stringify(import.meta.resolve('zod'))));
+    const generated = (await import(pathToFileURL(modulePath).href))[first.exportNames[0]];
+    const valid = { text: '😀😀😀', timestamp: '2020-01-01T06:15:00Z' };
+    assert.deepEqual(generated.parse(valid), valid);
+    assert.equal(generated.safeParse({ ...valid, text: '😀' }).success, false);
+    assert.equal(generated.safeParse({ ...valid, timestamp: '2020-01-01T06:15Z' }).success, false);
+  } finally {
+    fs.rmSync(directory, { recursive: true, force: true });
+  }
 });

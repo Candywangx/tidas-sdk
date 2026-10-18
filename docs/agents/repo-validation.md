@@ -29,8 +29,8 @@ checkPaths:
   - scripts/docpact-gate.sh
   - scripts/install-git-hooks.sh
 lastReviewedAt: 2026-10-18
-lastReviewedCommit: 3c0b7eb4fab554418f7e71620146e65366a9d246
-lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
+lastReviewedCommit: 8849b1deb335cb326a3cd94083c59de71988ffc0
+lastReviewedNote: "Reviewed SDK #171: TypeScript 0.6.0/exact Zod 4.6.7 prepares public-spec code-point/seconds validation and matching string diagnostics; Python/upstream assets, overlays, 95/75/70 gates and release automation are unchanged. Main merge/publication authorization remains separate."
 related:
   - ../../AGENTS.md
   - ../../.docpact/config.yaml
@@ -127,6 +127,30 @@ Facts that matter:
   cannot satisfy existing `^0.2.x` consumers. Python's API and version are
   unchanged. A compatible CLI release must pin this new line explicitly.
 - If a change touches `sdks/typescript/scripts/generate-zod-schemas.ts`, `sdks/typescript/src/core/config/ValidationConfig.ts`, or committed schema output under `sdks/typescript/src/schemas/**`, mention in the PR note whether the validation contract changed or remained backward compatible.
+
+## TypeScript 0.6 validation migration proof
+
+SDK #171 qualifies exact Zod 4.6.7 on TypeScript 0.6.0 against a frozen 4.4.3
+baseline. Capture actual strict entities, scalar exports and normalized
+code/path/severity/params/message/rawCode for singleton/array localized text,
+500/1000 bounds, astral/CJK/combining/ZWJ values, valid seconds/fractions/offsets,
+invalid minute precision and combined language/datetime errors. Parsed valid
+strings must be preserved. String actualLength counts code points; array
+actualLength still counts elements. Generic minimum-string normalization has
+its own case because the currently shipped String minimum is only one.
+
+Run both canonical package verifiers, unchanged 95/75/70 coverage, maintained
+examples and real packed CJS/ESM/TS consumers. Run schema-generation parity
+against the frozen baseline and prove regeneration leaves committed public
+schema expressions/assets unchanged; the renderer's native-keyword regression
+must test code-point/date-time semantics directly. Record intentional normative
+acceptance/length differences separately from unrelated regressions.
+
+Published 0.5.1 declares Zod ^4.4.3 and can already resolve 4.6.x without a
+frozen lock. Do not describe 0.6.0 as retroactive stability for that old runtime.
+No consumer repository is upgraded by local qualification. Main merge of this
+version bump has concrete tag/npm effects; source/tarball proof is separate
+from authorization for that release chain and its eventual registry receipt.
 
 ## Process allocation/reference semantic API proof
 

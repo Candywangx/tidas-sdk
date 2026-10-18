@@ -32,8 +32,8 @@ checkPaths:
   - scripts/docpact-gate.sh
   - scripts/install-git-hooks.sh
 lastReviewedAt: 2026-10-18
-lastReviewedCommit: 3c0b7eb4fab554418f7e71620146e65366a9d246
-lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
+lastReviewedCommit: 8849b1deb335cb326a3cd94083c59de71988ffc0
+lastReviewedNote: "Reviewed SDK #171: TypeScript 0.6.0/exact Zod 4.6.7 prepares public-spec code-point/seconds validation and matching string diagnostics; Python/upstream assets, overlays, 95/75/70 gates and release automation are unchanged. Main merge/publication authorization remains separate."
 related:
   - .docpact/config.yaml
   - docs/agents/repo-validation.md
@@ -46,6 +46,8 @@ related:
 ## Repo Contract
 
 `tidas-sdk` owns the generated developer package surface for TIDAS: the published TypeScript package, the in-repo Python SDK, and the generation / verification / release automation that keeps them aligned with the standalone public `tidas-spec` archive and the execution-oriented `tidas-tools` asset set.
+
+TypeScript 0.6.0 pins Zod 4.6.7 and uses public-spec Unicode code-point string bounds and RFC 3339 seconds. Normalized string actualLength uses code points; array diagnostics retain element counts. The package README owns migration details, including published 0.5.1's permissive transitive Zod range. Python remains 0.3.0.
 
 For the TypeScript package, that ownership now includes the machine-readable validation contract exposed by `validateEnhanced()`: downstream callers should expect a stable `validationIssues` array with normalized `code`, `path`, `severity`, optional `params`, and `rawCode`, rather than parsing raw Zod messages when stable behavior matters.
 

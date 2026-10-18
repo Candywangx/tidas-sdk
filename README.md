@@ -213,3 +213,5 @@ Review [AGENTS.md](./AGENTS.md) first for:
 - validation expectations
 - branch and delivery rules
 - workspace integration expectations
+
+TypeScript 0.6.0 prepares a versioned validation migration with exact Zod 4.6.7; see the [package migration guide](sdks/typescript/README.md#typescript-06-validation-migration). Python stays 0.3.0. Qualified local source/artifacts do not prove registry publication or upgrade any consumer.

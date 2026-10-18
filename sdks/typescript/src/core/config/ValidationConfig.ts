@@ -218,7 +218,7 @@ export class ValidationUtils {
     };
 
     if (issue.origin === 'string' && typeof inputValue === 'string') {
-      params.actualLength = inputValue.length;
+      params.actualLength = Array.from(inputValue).length;
     } else if (issue.origin === 'array' && Array.isArray(inputValue)) {
       params.actualLength = inputValue.length;
     } else if (
@@ -246,7 +246,7 @@ export class ValidationUtils {
     };
 
     if (issue.origin === 'string' && typeof inputValue === 'string') {
-      params.actualLength = inputValue.length;
+      params.actualLength = Array.from(inputValue).length;
     } else if (issue.origin === 'array' && Array.isArray(inputValue)) {
       params.actualLength = inputValue.length;
     } else if (

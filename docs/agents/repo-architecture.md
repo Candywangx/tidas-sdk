@@ -27,8 +27,8 @@ checkPaths:
   - scripts/docpact-gate.sh
   - scripts/install-git-hooks.sh
 lastReviewedAt: 2026-10-18
-lastReviewedCommit: 3c0b7eb4fab554418f7e71620146e65366a9d246
-lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
+lastReviewedCommit: 8849b1deb335cb326a3cd94083c59de71988ffc0
+lastReviewedNote: "Reviewed SDK #171: TypeScript 0.6.0/exact Zod 4.6.7 prepares public-spec code-point/seconds validation and matching string diagnostics; Python/upstream assets, overlays, 95/75/70 gates and release automation are unchanged. Main merge/publication authorization remains separate."
 related:
   - ../../AGENTS.md
   - ../../.docpact/config.yaml
@@ -117,6 +117,12 @@ compatibility boundary. Historical generated Zod schemas under-enforced parts
 of the authoritative Draft-07 inputs; downstream `^0.1.x` consumers do not
 receive those corrections automatically. Each consumer upgrades deliberately
 and runs its own real data cases.
+
+The 0.6.0 validation migration keeps those same immutable inputs and generated
+expressions while pinning native Zod 4.6.7 behavior. String bounds/normalized
+actualLength use code points; asserted date-time requires seconds. This is an
+explicit package migration, not a new public-schema asset or consumer upgrade.
+The published 0.5.1 transitive range is not retroactively frozen.
 
 ### Python package
 
