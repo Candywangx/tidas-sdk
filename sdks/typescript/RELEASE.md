@@ -67,6 +67,23 @@ The default baseline is `dist/schemas`. Use `TIDAS_ZOD_BASELINE_DIR` and
 `TIDAS_ZOD_CANDIDATE_DIR` for explicit artifacts, and record the exact upstream
 schema source in the PR validation note.
 
+## `0.6.0` validation migration
+
+SDK #171 prepares TypeScript 0.6.0 with exact Zod 4.6.7. Native bounds count
+Unicode code points and RFC 3339 date-time requires seconds; normalized string
+actualLength uses the same metric. The package README records examples and the
+published 0.5.1 `^4.4.3` transitive-range limitation. Python stays 0.3.0 and the
+public schemas, upstream pins and generated source expressions are unchanged.
+
+Qualify a frozen 4.4.3 baseline and the complete candidate verifier, generation
+parity, new actual-entity/scalar/combined diagnostics tests, coverage, examples
+and packed CJS/ESM/TypeScript consumers. Keep the existing 95/75/70 ratchets.
+A reviewed source/tarball candidate is not a registry receipt. Before merging
+this version change to main, resolve authorization for the concrete existing
+release chain: main push creates `typescript-v0.6.0` after verification using
+the automation token, and that tag triggers npm publishing. Do not dispatch,
+create a test tag, or bypass release gates to qualify this candidate.
+
 ## `0.2.0` compatibility boundary
 
 Issue #101 deliberately prepares `0.2.0`, rather than a `0.1.x` patch. The

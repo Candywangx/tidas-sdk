@@ -19,8 +19,8 @@ checkPaths:
   - package.json
   - .docpact/config.yaml
 lastReviewedAt: 2026-10-18
-lastReviewedCommit: 3c0b7eb4fab554418f7e71620146e65366a9d246
-lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
+lastReviewedCommit: 8849b1deb335cb326a3cd94083c59de71988ffc0
+lastReviewedNote: "Reviewed SDK #171: TypeScript 0.6.0/exact Zod 4.6.7 prepares public-spec code-point/seconds validation and matching string diagnostics; Python/upstream assets, overlays, 95/75/70 gates and release automation are unchanged. Main merge/publication authorization remains separate."
 related:
   - ../AGENTS.md
   - ../.docpact/config.yaml
@@ -31,6 +31,12 @@ related:
 # Release Setup
 
 This document captures the one-time repository and registry configuration required for the `tidas-sdk` release workflows.
+
+For the SDK #171 TypeScript 0.6.0 candidate, the existing Main push/tag/publish
+chain is release-triggering even though no deployment workflow is added. Keep
+source/tarball qualification and the final concrete publication authorization
+separate. No token, tag trigger, publishing gate or environment policy is
+changed for this migration; Python 0.3.0 is not a new release target.
 
 ## Cross-Repository Automation
 

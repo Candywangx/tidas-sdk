@@ -20,8 +20,8 @@ checkPaths:
   - package.json
   - .docpact/config.yaml
 lastReviewedAt: 2026-10-18
-lastReviewedCommit: 3c0b7eb4fab554418f7e71620146e65366a9d246
-lastReviewedNote: "Reviewed SDK #168 after composing delivered #169: exact Actions pins and real Python artifact transfer retain the public Model/Process tests and 95/75/70 coverage gates; package graph, versions, runtime/source identities and release authority are unchanged."
+lastReviewedCommit: 8849b1deb335cb326a3cd94083c59de71988ffc0
+lastReviewedNote: "Reviewed SDK #171: TypeScript 0.6.0/exact Zod 4.6.7 prepares public-spec code-point/seconds validation and matching string diagnostics; Python/upstream assets, overlays, 95/75/70 gates and release automation are unchanged. Main merge/publication authorization remains separate."
 related:
   - ../AGENTS.md
   - ../.docpact/config.yaml
@@ -52,6 +52,13 @@ The goal is:
 3. If generated output changes, `tidas-sdk` opens a release-prep PR.
 4. After the PR is merged, `tidas-sdk` creates package tags.
 5. Existing tag-driven release automation publishes the packages.
+
+SDK #171's TypeScript 0.6.0 validation migration changes its exact Zod runtime
+and normalized Unicode-length metric without changing either upstream identity
+or public asset bytes. Python stays 0.3.0. It uses the existing main-to-tag-to-npm
+release chain; local qualification must not invoke that chain as a test or be
+reported as publication. The final Main merge authorization includes those
+concrete release effects.
 
 ## Design Principles
 

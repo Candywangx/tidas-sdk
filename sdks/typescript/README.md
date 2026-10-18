@@ -109,6 +109,37 @@ For stable programmatic error handling, entity callers should prefer
 `validateEnhanced()` and consume normalized `validationIssues` rather than
 parsing Zod message text.
 
+## TypeScript 0.6 validation migration
+
+Version 0.6.0 pins runtime `zod` to exact `4.6.7` and aligns native string bounds
+and asserted date-time validation with the locked public Draft-07 specification.
+Python remains 0.3.0; the immutable specification/tools inputs are unchanged.
+
+| Input or diagnostic | Frozen Zod 4.4.3 baseline | Qualified 0.6.0 / Zod 4.6.7 |
+| --- | --- | --- |
+| 251 emoji in a maxLength 500 field | Rejected as 502 UTF-16 units | Accepted as 251 Unicode code points |
+| 501 emoji in that field | Rejected; actualLength 1002 | Rejected; actualLength 501 |
+| `2020-01-01T06:15Z` or `2020-01-01T06:15+08:00` | Accepted | Rejected; RFC 3339 requires seconds |
+| `2020-01-01T06:15:00Z` and second/fraction values with a valid offset | Accepted | Accepted; parsed strings preserved |
+
+Normalized string `params.actualLength` now uses Unicode code points, matching
+the native validator and JSON Schema bounds. A combining sequence such as
+`e` plus a combining accent counts as two; emoji joined by a zero-width joiner
+still contain several code points. This is not a grapheme-cluster count.
+Array length diagnostics still count array elements. Existing custom language,
+CAS and other named overlay codes/paths remain covered; no legacy UTF-16 or
+minute-only datetime exception is introduced.
+
+The package minor is a deliberate pre-1.0 migration: `^0.5.x` does not select
+0.6.0. However, published 0.5.1 declares **`zod: ^4.4.3`**, which already permits
+4.6.x in an unlocked installation. The new version boundary does not
+retroactively freeze that published line. Audit the actual resolved dependency
+and lockfile when comparing old consumers; the old column above specifically
+means a frozen 4.4.3 runtime. New 0.6.0's exact dependency binds the qualified
+semantics. No previous release/tag is rewritten and no consuming repository is
+upgraded automatically. Before adopting it, run the consumer's real data cases,
+review string limits, and supply timestamp seconds according to its data.
+
 ## Package parity validation
 
 ```typescript
